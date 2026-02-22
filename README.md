@@ -1,70 +1,126 @@
-# projet-cv
+🧠 AI CV Generator – Fine-Tuned LLM + API Deployment
 
 
-                                                  Présentation du projet :
-Dans un  contexte de forte concurrence sur le marché de l’emploi et de l’alternance, la qualité et la présentation du cv jouent un rôle important. De nombreux étudiants et professionnels possèdent de nombreuses connaissances et compétences mais rencontrent des difficultés à les structurer et à les présenter de manière claire, cohérente et professionnelle. 
-l’intelligence artificielle et plus particulièrement les modèles de langage permettent aujourd'hui d’automatiser certaines tâches dont la génération et la structuration de  texte. Ce  projet s’inscrit dans cette dynamique. 
-Le modèle au cœur de l'application prend en entrée la description du profil d'une personne (incluant formation, certifications et expérience) et génère un CV. Ce processus s'accompagne d'une série de questions posées à l'utilisateur pour garantir la qualité optimale du CV produit.
- Objectifs du projet:
-Collecter les informations de l'utilisateur de l’application (informations personnelles et informations professionnelles)
-Générer un CV structuré et professionnel
-Permettre un choix un choix du thème et des couleurs du CV
-Permettre le téléchargement du cv 
-
-                                                 Exigences fonctionnelles :
-   1.Saisie des informations personnelles:
-nom
-prenom
-adresse mail
-contact 
-numero de telephone
-adresse
-permis de conduire ou nom 
-compte linkedin
-compte github
-hobbies et centres d'intérêt
-
-   2.Saisie Informations professionnelles
-résumé
-formation 
-experiences professionnelle
-langues parlées
-compétences
-certifications
-projets (académiques et professionnelles)
-
-   3.Personnalisation du CV
-choix du thème principale
-choix des couleurs secondaires
-
-  4.Utilisation d’un model IA fine-tune
-fine-tuner le modèle  avec un data-set généré par une IA
-Reformuler le texte à l'aide du modele IA pour la generation du CV
-
-  5.Génération automatique du CV
-produire un aperçu du CV avant de le générer
-produire un cv professionnelle bien structuré
+Ce projet propose un pipeline complet pour affiner (fine-tuner) le modèle de langage Microsoft Phi-3-Mini-4k-Instruct afin d'extraire des informations non structurées de CV (texte brut) et de les convertir en un format JSON structuré tout en reformulant et améliorant les résumés professionnels de manière qualitative.. Le projet inclut l'entraînement du modèle via QLoRA, ainsi que le déploiement d'une API REST Flask exposée publiquement via Ngrok.
 
 
-  6.Telechargement du Cv
-avoir un apercu du Cv avant le telechargement 
-permettre le telchargement du cv en format PDF
+✨ Fonctionnalités
 
+    Fine-Tuning Optimisé (QLoRA) : Entraînement sur GPU avec quantification en 4-bits pour réduire l'empreinte mémoire tout en conservant d'excellentes performances.
 
-                                                             Contraintes techniques
-Langage principal : Python
+    Extraction Structurée (JSON) : Conversion de descriptions textuelles de candidats en un schéma JSON strict (Informations, Résumé, Compétences, Expériences, Éducation, etc.).
 
+    API RESTful : Déploiement du modèle affiné via une application Flask légère.
 
-Interface : Streamlit
+    Accès Public : Création d'un tunnel sécurisé via Ngrok pour interroger l'API depuis n'importe où.
 
+    Traitement par Lot (Batch) : Script fourni pour traiter plusieurs CV simultanément à partir d'un fichier JSON en entrée.
 
-IA : modèle open-source fine-tuné (Phi-3 Mini )
+🛠️ Technologies Utilisées
 
+    Modèle de base : microsoft/phi-3-mini-4k-instruct
 
-Génération du CV : HTML / CSS
+    Machine Learning : PyTorch, Hugging Face transformers, peft (LoRA), trl (SFTTrainer), bitsandbytes.
 
+    Backend & API : Python, Flask, Flask-CORS.
 
-Versionnement : GitHub
+    Déploiement réseau : PyNgrok.
 
+    Environnement : Conçu pour Google Colab (GPU A100/T4) avec intégration Google Drive.
 
-Collaboration : travail en branches + pull requests
+📂 Structure du Projet (Google Drive)
+
+Le code s'attend à l'arborescence suivante dans votre Google Drive (/content/drive/MyDrive/projet_cv/projet-cv) :
+projet-cv/
+│
+├── data/
+│   └── dataset.jsonl       # Dataset d'entraînement et d'évaluation
+├── model/
+│   └── cv-lora/            # Dossier généré contenant les poids LoRA (Adapters) sauvegardés
+├── cache/                  # Dossier de cache pour les modèles Hugging Face
+├── input_cv.json           # Fichier de test contenant les candidats en entrée
+└── output_cvs.json         # Fichier généré contenant les résultats d'extraction
+
+🚀 Installation et Prérequis
+
+    Environnement : Ouvrez le notebook projet_cv.ipynb dans Google Colab. Un GPU (ex: T4 ou A100) est requis.
+
+    Google Drive : Montez votre Google Drive et assurez-vous que le chemin PATH_PROJET correspond à votre arborescence.
+
+    Compte Ngrok : Créez un compte gratuit sur Ngrok pour obtenir un Auth Token. Remplacez le token présent dans le code par le vôtre.
+
+⚙️ Utilisation
+1. Entraînement du Modèle (Fine-Tuning)
+
+Exécutez la première cellule du notebook pour lancer le processus d'entraînement. Le script va :
+
+    Charger et diviser le dataset (80% train / 20% test).
+
+    Quantifier le modèle Phi-3 en 4-bits.
+
+    Entraîner les adaptateurs LoRA sur 4 époques.
+
+    Sauvegarder les poids dans le dossier model/cv-lora.
+
+2. Lancement de l'API Flask
+
+Exécutez les cellules de configuration et de démarrage du serveur Flask. L'API démarrera en arrière-plan sur le port 5000.
+3. Exposition Publique avec Ngrok
+
+Exécutez la cellule contenant la configuration Ngrok. Une URL publique (ex: https://xxx.ngrok-free.dev) sera générée et affichée dans la console.
+
+📡 Documentation de l'API
+
+L'API expose deux routes principales :
+GET /health
+
+Vérifie l'état du serveur et la disponibilité du GPU.
+POST /cv/generate
+
+Extrait les informations d'un CV textuel.
+
+Requête (Body JSON) :
+{
+  "input": "Patrick Yoba. Étudiant ingénieur data/IA. Résumé: recherche stage data science. Email: patrick.yoba@email.com. Compétences: Python, SQL, ML. École: 3iL Limoges (2024-)."
+}
+
+{
+  "informations": {
+    "prenom": "Patrick",
+    "nom": "Yoba",
+    "titre": "Étudiant ingénieur data/IA",
+    "email": "patrick.yoba@email.com",
+    "telephone": null,
+    "adresse": "France",
+    "liens": []
+  },
+  "resume": "Enquête active stages data science.",
+  "competences": {
+    "techniques": ["Python", "SQL", "ML"],
+    "outils": [],
+    "soft_skills": []
+  },
+  "experience": [],
+  "education": [
+    {
+      "ecole": "3iL Limoges",
+      "diplome": "Ingénieur data/IA",
+      "annee": "2024"
+    }
+  ],
+  "projets": [],
+  "langues": []
+}
+
+Le Fine-Tuning a démontré d'excellentes capacités à imposer un format de sortie JSON strict au modèle Phi-3 et à classifier correctement les entités (Nom, Compétences, Diplômes).
+
+Axes d'amélioration connus :
+
+    Hallucinations : Le modèle peut parfois inventer des noms d'écoles, d'entreprises ou de diplômes s'ils ne sont pas explicites dans le texte.
+
+    Instabilité syntaxique : De rares variations dans les clés JSON (ex: experece au lieu de experience) ont été observées, nécessitant potentiellement une validation post-traitement (ex: Pydantic) ou un ajustement de la pénalité de répétition (repetition_penalty).
+
+👨‍💻 Auteur
+
+Patrick Yoba
+Etudiants 3IL INGENIEURS

@@ -1,70 +1,40 @@
-# projet-cv
+🧠 AI CV Generator – Fine-Tuned LLM + API Deployment
+📌 Description
+
+AI-powered CV Generator basé sur un modèle LLM fine-tuné avec LoRA (Low-Rank Adaptation) sur Phi-3 Mini, exposé via une API Flask, capable de générer des CV structurés en JSON à partir d’un prompt utilisateur.
+
+Le projet couvre :
+
+Fine-tuning LLM (LoRA)
+
+Quantization 4-bit (BitsAndBytes)
+
+Inference server Flask
+
+Exposition publique via ngrok
+
+Génération structurée en JSON
+
+Tests API automatisés
 
 
-                                                  Présentation du projet :
-Dans un  contexte de forte concurrence sur le marché de l’emploi et de l’alternance, la qualité et la présentation du cv jouent un rôle important. De nombreux étudiants et professionnels possèdent de nombreuses connaissances et compétences mais rencontrent des difficultés à les structurer et à les présenter de manière claire, cohérente et professionnelle. 
-l’intelligence artificielle et plus particulièrement les modèles de langage permettent aujourd'hui d’automatiser certaines tâches dont la génération et la structuration de  texte. Ce  projet s’inscrit dans cette dynamique. 
-Le modèle au cœur de l'application prend en entrée la description du profil d'une personne (incluant formation, certifications et expérience) et génère un CV. Ce processus s'accompagne d'une série de questions posées à l'utilisateur pour garantir la qualité optimale du CV produit.
- Objectifs du projet:
-Collecter les informations de l'utilisateur de l’application (informations personnelles et informations professionnelles)
-Générer un CV structuré et professionnel
-Permettre un choix un choix du thème et des couleurs du CV
-Permettre le téléchargement du cv 
+**1. Fine-Tuning du Modèle**
 
-                                                 Exigences fonctionnelles :
-   1.Saisie des informations personnelles:
-nom
-prenom
-adresse mail
-contact 
-numero de telephone
-adresse
-permis de conduire ou nom 
-compte linkedin
-compte github
-hobbies et centres d'intérêt
+Le modèle utilisé : Microsoft Phi-3 Mini
+Le modèle Phi-3 Mini (~3.8B paramètres) a été sélectionné pour son excellent compromis entre performance, légèreté et déployabilité.
+Grâce à sa taille réduite, il permet :
 
-   2.Saisie Informations professionnelles
-résumé
-formation 
-experiences professionnelle
-langues parlées
-compétences
-certifications
-projets (académiques et professionnelles)
+-Un fine-tuning efficace avec LoRA (PEFT)
+-Une quantization 4-bit (BitsAndBytes) réduisant fortement la consommation mémoire
+-Une exécution possible sur des environnements limités (Google Colab, GPU modeste)
+-Une latence faible en inference, adaptée à une API Flask
 
-   3.Personnalisation du CV
-choix du thème principale
-choix des couleurs secondaires
+Phi-3 Mini conserve une bonne capacité à suivre des instructions complexes et à produire des sorties JSON structurées, ce qui est essentiel pour un générateur de CV automatisé.
 
-  4.Utilisation d’un model IA fine-tune
-fine-tuner le modèle  avec un data-set généré par une IA
-Reformuler le texte à l'aide du modele IA pour la generation du CV
+Adaptation LoRA (PEFT)
+Quantization 4-bit (BitsAndBytes)
 
-  5.Génération automatique du CV
-produire un aperçu du CV avant de le générer
-produire un cv professionnelle bien structuré
+Objectif :
 
-
-  6.Telechargement du Cv
-avoir un apercu du Cv avant le telechargement 
-permettre le telchargement du cv en format PDF
-
-
-                                                             Contraintes techniques
-Langage principal : Python
-
-
-Interface : Streamlit
-
-
-IA : modèle open-source fine-tuné (Phi-3 Mini )
-
-
-Génération du CV : HTML / CSS
-
-
-Versionnement : GitHub
-
-
-Collaboration : travail en branches + pull requests
+Transformer des descriptions brutes en CV structurés JSON
+Forcer un format strict via SYSTEM_PROMPT

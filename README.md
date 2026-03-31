@@ -8,7 +8,7 @@ Ce projet propose un pipeline complet pour affiner (fine-tuner) le modèle de la
 
     Fine-Tuning Optimisé (QLoRA) : Entraînement sur GPU avec quantification en 4-bits pour réduire l'empreinte mémoire tout en conservant d'excellentes performances.
 
-    Extraction Structurée (JSON) : Conversion de descriptions textuelles de candidats en un schéma JSON strict (Informations, Résumé, Compétences, Expériences, Éducation, etc.).
+    Extraction Structurée (JSON) : Conversion de descriptions de candidats en un schéma JSON strict (Informations, Résumé, Compétences, Expériences, Éducation, etc.).
 
     API RESTful : Déploiement du modèle affiné via une application Flask légère.
 

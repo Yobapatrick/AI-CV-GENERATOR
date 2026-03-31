@@ -5,7 +5,6 @@ trl
 bitsandbytes
 accelerate
 flask
-flask-cors
 pyngrok
 datasets
 matplotlib

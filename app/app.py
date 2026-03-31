@@ -12,7 +12,7 @@ CORS(app)
 MODEL_NAME = "microsoft/phi-3-mini-4k-instruct"
 LORA_PATH = "../model/cv-lora" # Chemin vers tes adaptateurs sauvegardés
 
-# Chargement du modèle (Optimisé pour GPU)
+# Chargement du modèle
 print("Chargement du modèle...")
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
 base_model = AutoModelForCausalLM.from_pretrained(

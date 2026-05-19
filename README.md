@@ -60,7 +60,7 @@ A generic prompt to a base LLM does neither reliably: the schema drifts, keys ge
 
 ```json
 {
-  "input": "Patrick Yoba. Étudiant ingénieur data/IA. Résumé: recherche stage data science. Email: patrick.yoba@email.com. Compétences: Python, SQL, ML. École: 3iL Limoges (2024-)."
+  "input": "Patrick Yoba. Étudiant ingénieur en data/IA. Résumé: recherche stage data science. Email: patrick.yoba@email.com. Compétences: Python, SQL, ML. École: 3iL Limoges (2024-)."
 }
 ```
 
